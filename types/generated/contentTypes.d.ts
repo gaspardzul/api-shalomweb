@@ -863,6 +863,155 @@ export interface ApiDocumentTypeDocumentType extends Schema.CollectionType {
   };
 }
 
+export interface ApiEventEvent extends Schema.CollectionType {
+  collectionName: 'events';
+  info: {
+    singularName: 'event';
+    pluralName: 'events';
+    displayName: 'Event';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    logo: Attribute.Media;
+    gallery: Attribute.Media;
+    itinerary: Attribute.Media;
+    latitude: Attribute.String;
+    longitude: Attribute.String;
+    representativeName: Attribute.String;
+    phoneNumberRepresentative: Attribute.String;
+    address: Attribute.String;
+    date: Attribute.DateTime & Attribute.Required;
+    organization: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    banner: Attribute.Media;
+    needConfirmation: Attribute.Boolean & Attribute.DefaultTo<false>;
+    recoveryFee: Attribute.Decimal;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event.event',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEventAssistantEventAssistant extends Schema.CollectionType {
+  collectionName: 'event_assistants';
+  info: {
+    singularName: 'event-assistant';
+    pluralName: 'event-assistants';
+    displayName: 'Event Assistant';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    confirmed: Attribute.Boolean;
+    member: Attribute.Relation<
+      'api::event-assistant.event-assistant',
+      'oneToOne',
+      'api::member.member'
+    >;
+    event: Attribute.Relation<
+      'api::event-assistant.event-assistant',
+      'oneToOne',
+      'api::event.event'
+    >;
+    amountPaid: Attribute.Decimal;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::event-assistant.event-assistant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::event-assistant.event-assistant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFamilyFamily extends Schema.CollectionType {
+  collectionName: 'families';
+  info: {
+    singularName: 'family';
+    pluralName: 'families';
+    displayName: 'Family';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    Description: Attribute.Text;
+    avatar: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::family.family',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::family.family',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGeneralSettingsGeneralSettings extends Schema.SingleType {
+  collectionName: 'generals_settings';
+  info: {
+    singularName: 'general-settings';
+    pluralName: 'generals-settings';
+    displayName: 'General Settings';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    siteActive: Attribute.Boolean;
+    backgroundSite: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::general-settings.general-settings',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::general-settings.general-settings',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGroupGroup extends Schema.CollectionType {
   collectionName: 'groups';
   info: {
@@ -963,7 +1112,7 @@ export interface ApiMemberMember extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    firstName: Attribute.String;
+    firstName: Attribute.String & Attribute.Required;
     lastName: Attribute.String;
     address: Attribute.String;
     isMarried: Attribute.Boolean & Attribute.DefaultTo<false>;
@@ -1001,6 +1150,11 @@ export interface ApiMemberMember extends Schema.CollectionType {
       'api::member.member',
       'oneToOne',
       'api::organization.organization'
+    >;
+    family: Attribute.Relation<
+      'api::member.member',
+      'oneToOne',
+      'api::family.family'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1237,6 +1391,10 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::baptism-information.baptism-information': ApiBaptismInformationBaptismInformation;
       'api::document-type.document-type': ApiDocumentTypeDocumentType;
+      'api::event.event': ApiEventEvent;
+      'api::event-assistant.event-assistant': ApiEventAssistantEventAssistant;
+      'api::family.family': ApiFamilyFamily;
+      'api::general-settings.general-settings': ApiGeneralSettingsGeneralSettings;
       'api::group.group': ApiGroupGroup;
       'api::managed-organization.managed-organization': ApiManagedOrganizationManagedOrganization;
       'api::member.member': ApiMemberMember;

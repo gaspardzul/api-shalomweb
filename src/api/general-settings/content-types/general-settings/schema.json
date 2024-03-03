@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "generals_settings",
+  "info": {
+    "singularName": "general-settings",
+    "pluralName": "generals-settings",
+    "displayName": "General Settings"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "siteActive": {
+      "type": "boolean"
+    },
+    "backgroundSite": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

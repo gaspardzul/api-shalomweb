@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_assistants",
+  "info": {
+    "singularName": "event-assistant",
+    "pluralName": "event-assistants",
+    "displayName": "Event Assistant"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "confirmed": {
+      "type": "boolean"
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    },
+    "event": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::event.event"
+    },
+    "amountPaid": {
+      "type": "decimal"
+    }
+  }
+}

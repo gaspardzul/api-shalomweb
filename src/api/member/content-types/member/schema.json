@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "firstName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "lastName": {
       "type": "string"
@@ -83,6 +84,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::organization.organization"
+    },
+    "family": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::family.family"
     }
   }
 }
