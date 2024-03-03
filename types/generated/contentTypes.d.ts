@@ -873,6 +873,45 @@ export interface ApiGroupGroup extends Schema.CollectionType {
   };
 }
 
+export interface ApiManagedOrganizationManagedOrganization
+  extends Schema.CollectionType {
+  collectionName: 'managed_organizations';
+  info: {
+    singularName: 'managed-organization';
+    pluralName: 'managed-organizations';
+    displayName: 'Managed Organization';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::managed-organization.managed-organization',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    organizations: Attribute.Relation<
+      'api::managed-organization.managed-organization',
+      'oneToMany',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::managed-organization.managed-organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::managed-organization.managed-organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMemberMember extends Schema.CollectionType {
   collectionName: 'members';
   info: {
@@ -1122,6 +1161,7 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::document-type.document-type': ApiDocumentTypeDocumentType;
       'api::group.group': ApiGroupGroup;
+      'api::managed-organization.managed-organization': ApiManagedOrganizationManagedOrganization;
       'api::member.member': ApiMemberMember;
       'api::member-documentation.member-documentation': ApiMemberDocumentationMemberDocumentation;
       'api::ministry.ministry': ApiMinistryMinistry;

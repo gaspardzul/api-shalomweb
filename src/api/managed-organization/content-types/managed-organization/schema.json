@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "managed_organizations",
+  "info": {
+    "singularName": "managed-organization",
+    "pluralName": "managed-organizations",
+    "displayName": "Managed Organization"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "organizations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::organization.organization"
+    }
+  }
+}
