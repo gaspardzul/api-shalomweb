@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "position_members",
+  "info": {
+    "singularName": "position-member",
+    "pluralName": "position-members",
+    "displayName": "Position Member",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "color": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organization.organization"
+    }
+  }
+}

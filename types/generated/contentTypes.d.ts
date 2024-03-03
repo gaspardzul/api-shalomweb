@@ -787,6 +787,45 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiBaptismInformationBaptismInformation
+  extends Schema.CollectionType {
+  collectionName: 'baptism_informations';
+  info: {
+    singularName: 'baptism-information';
+    pluralName: 'baptism-informations';
+    displayName: 'Baptism information';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    date: Attribute.Date;
+    notes: Attribute.Text;
+    namePastor: Attribute.String;
+    files: Attribute.Media;
+    member: Attribute.Relation<
+      'api::baptism-information.baptism-information',
+      'oneToOne',
+      'api::member.member'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::baptism-information.baptism-information',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::baptism-information.baptism-information',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiDocumentTypeDocumentType extends Schema.CollectionType {
   collectionName: 'document_types';
   info: {
@@ -1100,6 +1139,43 @@ export interface ApiOrganizationOrganization extends Schema.CollectionType {
   };
 }
 
+export interface ApiPositionMemberPositionMember extends Schema.CollectionType {
+  collectionName: 'position_members';
+  info: {
+    singularName: 'position-member';
+    pluralName: 'position-members';
+    displayName: 'Position Member';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    color: Attribute.String;
+    organization: Attribute.Relation<
+      'api::position-member.position-member',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::position-member.position-member',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::position-member.position-member',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiRelationShipRelationShip extends Schema.CollectionType {
   collectionName: 'relation_ships';
   info: {
@@ -1159,6 +1235,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::baptism-information.baptism-information': ApiBaptismInformationBaptismInformation;
       'api::document-type.document-type': ApiDocumentTypeDocumentType;
       'api::group.group': ApiGroupGroup;
       'api::managed-organization.managed-organization': ApiManagedOrganizationManagedOrganization;
@@ -1166,6 +1243,7 @@ declare module '@strapi/types' {
       'api::member-documentation.member-documentation': ApiMemberDocumentationMemberDocumentation;
       'api::ministry.ministry': ApiMinistryMinistry;
       'api::organization.organization': ApiOrganizationOrganization;
+      'api::position-member.position-member': ApiPositionMemberPositionMember;
       'api::relation-ship.relation-ship': ApiRelationShipRelationShip;
     }
   }

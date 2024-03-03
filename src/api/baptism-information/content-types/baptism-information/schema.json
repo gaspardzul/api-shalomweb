@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "baptism_informations",
+  "info": {
+    "singularName": "baptism-information",
+    "pluralName": "baptism-informations",
+    "displayName": "Baptism information",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "namePastor": {
+      "type": "string"
+    },
+    "files": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    }
+  }
+}
