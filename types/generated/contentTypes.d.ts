@@ -1038,9 +1038,9 @@ export interface ApiGroupGroup extends Schema.CollectionType {
       'oneToMany',
       'api::member.member'
     >;
-    representative: Attribute.Relation<
+    representatives: Attribute.Relation<
       'api::group.group',
-      'oneToOne',
+      'oneToMany',
       'api::member.member'
     >;
     createdAt: Attribute.DateTime;
