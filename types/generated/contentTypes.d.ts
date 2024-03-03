@@ -690,7 +690,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -718,6 +717,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    member: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::member.member'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -783,6 +787,321 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiDocumentTypeDocumentType extends Schema.CollectionType {
+  collectionName: 'document_types';
+  info: {
+    singularName: 'document-type';
+    pluralName: 'document-types';
+    displayName: 'Document type';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    avatar: Attribute.Media;
+    organization: Attribute.Relation<
+      'api::document-type.document-type',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::document-type.document-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::document-type.document-type',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGroupGroup extends Schema.CollectionType {
+  collectionName: 'groups';
+  info: {
+    singularName: 'group';
+    pluralName: 'groups';
+    displayName: 'Group';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    logo: Attribute.Media;
+    gallery: Attribute.Media;
+    organization: Attribute.Relation<
+      'api::group.group',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    members: Attribute.Relation<
+      'api::group.group',
+      'oneToMany',
+      'api::member.member'
+    >;
+    representative: Attribute.Relation<
+      'api::group.group',
+      'oneToOne',
+      'api::member.member'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::group.group',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::group.group',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMemberMember extends Schema.CollectionType {
+  collectionName: 'members';
+  info: {
+    singularName: 'member';
+    pluralName: 'members';
+    displayName: 'Member';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    firstName: Attribute.String;
+    lastName: Attribute.String;
+    address: Attribute.String;
+    isMarried: Attribute.Boolean & Attribute.DefaultTo<false>;
+    birthDay: Attribute.Date;
+    spouse: Attribute.Relation<
+      'api::member.member',
+      'oneToOne',
+      'api::member.member'
+    >;
+    avatar: Attribute.Media;
+    isAlive: Attribute.Boolean & Attribute.DefaultTo<true>;
+    dateDeath: Attribute.Date;
+    latitude: Attribute.String;
+    longitude: Attribute.String;
+    relationship: Attribute.Relation<
+      'api::member.member',
+      'oneToOne',
+      'api::relation-ship.relation-ship'
+    >;
+    emergencyContact: Attribute.String;
+    emergencyPhoneContact: Attribute.String;
+    bloodType: Attribute.Enumeration<
+      [
+        'O positivo (O+)',
+        'O negativo (O-)',
+        'A positivo (A +)',
+        'A negativo (A-)',
+        'B positivo (B +)',
+        'B negativo (B-)',
+        'AB positivo (AB+)',
+        'AB negativo (AB-)'
+      ]
+    >;
+    organization: Attribute.Relation<
+      'api::member.member',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::member.member',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::member.member',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMemberDocumentationMemberDocumentation
+  extends Schema.CollectionType {
+  collectionName: 'member_documentations';
+  info: {
+    singularName: 'member-documentation';
+    pluralName: 'member-documentations';
+    displayName: 'Member Documentation';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    document_type: Attribute.Relation<
+      'api::member-documentation.member-documentation',
+      'oneToOne',
+      'api::document-type.document-type'
+    >;
+    member: Attribute.Relation<
+      'api::member-documentation.member-documentation',
+      'oneToOne',
+      'api::member.member'
+    >;
+    file: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::member-documentation.member-documentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::member-documentation.member-documentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMinistryMinistry extends Schema.CollectionType {
+  collectionName: 'ministries';
+  info: {
+    singularName: 'ministry';
+    pluralName: 'ministries';
+    displayName: 'Ministry';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    members: Attribute.Relation<
+      'api::ministry.ministry',
+      'oneToMany',
+      'api::member.member'
+    >;
+    organization: Attribute.Relation<
+      'api::ministry.ministry',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::ministry.ministry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::ministry.ministry',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrganizationOrganization extends Schema.CollectionType {
+  collectionName: 'organizations';
+  info: {
+    singularName: 'organization';
+    pluralName: 'organizations';
+    displayName: 'Organization';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    address: Attribute.String;
+    longitude: Attribute.String;
+    latitude: Attribute.String;
+    logo: Attribute.Media;
+    description: Attribute.Text;
+    gallery: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::organization.organization',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRelationShipRelationShip extends Schema.CollectionType {
+  collectionName: 'relation_ships';
+  info: {
+    singularName: 'relation-ship';
+    pluralName: 'relation-ships';
+    displayName: 'RelationShip';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    representative: Attribute.Relation<
+      'api::relation-ship.relation-ship',
+      'oneToOne',
+      'api::member.member'
+    >;
+    avatar: Attribute.Media;
+    organization: Attribute.Relation<
+      'api::relation-ship.relation-ship',
+      'oneToOne',
+      'api::organization.organization'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::relation-ship.relation-ship',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::relation-ship.relation-ship',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -801,6 +1120,13 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::document-type.document-type': ApiDocumentTypeDocumentType;
+      'api::group.group': ApiGroupGroup;
+      'api::member.member': ApiMemberMember;
+      'api::member-documentation.member-documentation': ApiMemberDocumentationMemberDocumentation;
+      'api::ministry.ministry': ApiMinistryMinistry;
+      'api::organization.organization': ApiOrganizationOrganization;
+      'api::relation-ship.relation-ship': ApiRelationShipRelationShip;
     }
   }
 }

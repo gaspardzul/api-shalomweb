@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "member_documentations",
+  "info": {
+    "singularName": "member-documentation",
+    "pluralName": "member-documentations",
+    "displayName": "Member Documentation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "document_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::document-type.document-type"
+    },
+    "member": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    },
+    "file": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

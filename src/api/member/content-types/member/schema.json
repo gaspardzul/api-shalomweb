@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members",
+  "info": {
+    "singularName": "member",
+    "pluralName": "members",
+    "displayName": "Member",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "isMarried": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "birthDay": {
+      "type": "date"
+    },
+    "spouse": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::member.member"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "isAlive": {
+      "type": "boolean",
+      "default": true
+    },
+    "dateDeath": {
+      "type": "date"
+    },
+    "latitude": {
+      "type": "string"
+    },
+    "longitude": {
+      "type": "string"
+    },
+    "relationship": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::relation-ship.relation-ship"
+    },
+    "emergencyContact": {
+      "type": "string"
+    },
+    "emergencyPhoneContact": {
+      "type": "string"
+    },
+    "bloodType": {
+      "type": "enumeration",
+      "enum": [
+        "O positivo (O+)",
+        "O negativo (O-)",
+        "A positivo (A +)",
+        "A negativo (A-)",
+        "B positivo (B +)",
+        "B negativo (B-)",
+        "AB positivo (AB+)",
+        "AB negativo (AB-)"
+      ]
+    },
+    "organization": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::organization.organization"
+    }
+  }
+}
